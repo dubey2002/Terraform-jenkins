@@ -9,7 +9,7 @@ pipeline {
         stage('checkout') {
             steps {
                  script{
-                        dir("terraform")
+                        dir("Terraform-jenkins")
                         {
                             git "https://github.com/dubey2002/Terraform-jenkins.git"
                         }
@@ -19,9 +19,9 @@ pipeline {
 
         stage('Plan') {
             steps {
-                sh 'pwd;cd terraform/ ; terraform init'
-                sh "pwd;cd terraform/ ; terraform plan -out tfplan"
-                sh 'pwd;cd terraform/ ; terraform show -no-color tfplan > tfplan.txt'
+                sh 'pwd;cd Terraform-jenkins/ ; terraform init'
+                sh "pwd;cd Terraform-jenkins/ ; terraform plan -out tfplan"
+                sh 'pwd;cd Terraform-jenkins/ ; terraform show -no-color tfplan > tfplan.txt'
             }
         }
         stage('Approval') {
@@ -42,7 +42,7 @@ pipeline {
 
         stage('Apply') {
             steps {
-                sh "pwd;cd terraform/ ; terraform apply -input=false tfplan"
+                sh "pwd;cd Terraform-jenkins/ ; terraform apply -input=false tfplan"
             }
         }
     }
